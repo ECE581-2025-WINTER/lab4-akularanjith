@@ -1,29 +1,3 @@
-source -echo -verbose ../../$top_design.design_config.tcl
-
-
-# List all current designs
-set this_design [ list_designs ]
-
-# If there are existing designs reset/remove them
-if { $this_design != 0 } {
-  # To reset the earlier designs
-  reset_design
-  remove_design -designs
-}
-
-if { ! [ info exists top_design ] } {
-   set top_design fifo1
-}
-
-source ../scripts/dc-get-timlibs.tcl
-
-
-# Analyzing the files for the design
-analyze $rtl_list -autoread -define SYNTHESIS
-
-# Elaborate the FIFO design
-elaborate ${top_design} 
-
 if { [ info exists add_ios ] && $add_ios } {
    source -echo -verbose ../scripts/add_ios.tcl
    # Source the design dependent code that will put IOs on different sides
@@ -61,6 +35,5 @@ write -hier -format verilog -output ../outputs/${top_design}.$stage.vg
 write -hier -format verilog -pg -output ../outputs/${top_design}.$stage.pg.vg
 write -hier -format ddc -output ../outputs/${top_design}.$stage.ddc
 save_upf ../outputs/${top_design}.$stage.upf
-
 
 

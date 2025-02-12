@@ -1,0 +1,1270 @@
+setting auto_restore_mw_cel_lib_setup true
+Initializing gui preferences from file  /u/ranjith/.synopsys_dv_prefs.tcl
+dc_shell> fs
+setting top_design to: 
+fifo1_sram
+dc_shell> source ../scripts/dc.tcl
+set lib_dir /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib
+set hack_lef_dir /u/bcruik2/hacked_lefs
+/u/bcruik2/hacked_lefs
+# Decoder ring for the libraries
+# You will need to follow another example or look in the library directories to understand.
+# lib_types is used for the dc/dct linking variables and ICC2 NDM lcoations.
+# /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/db_nldm
+# /          $lib_dir                   /lib/ $lib_type /db_nldm
+# link_library, Target_library use the sub_lib_types and corner variables. 
+# For sub_lib_types and corner:
+# Example:
+#     saed32hvt_ss0p75v125c.db
+#     |sub_lib  corner    .db
+# The current flow tries to find all sub_lib and all corners in all the search paths.  Any match will be put in the library list.
+# Wild cards can be used, but be careful.  Multiple matches can occur in ways you don't want.
+# For the target library, the same method is used as the link library except only HVT and RVT lib_types are used.
+# ICC2 NDM choosing also uses the sub_lib_types so that only the required libraries and extras are not loaded.
+# fifo1
+#set top_design fifo1
+set add_ios 1
+1
+set pad_design 1
+1
+set design_size { 580 580  } 
+ 580 580  
+set design_io_border 310
+310
+set dc_floorplanning 1
+1
+set enable_dft 0
+0
+set innovus_enable_manual_macro_placement 0
+0
+set rtl_list [list ../../syn/rtl/$top_design.sv ]
+../../syn/rtl/fifo1_sram.sv
+set slow_corner "ss0p95v125c_2p25v ss0p95v125c"
+ss0p95v125c_2p25v ss0p95v125c
+set fast_corner "ff0p95vn40c ff1p16vn40c_2p75v ff1p16vn40c"
+ff0p95vn40c ff1p16vn40c_2p75v ff1p16vn40c
+set synth_corners $slow_corner
+ss0p95v125c_2p25v ss0p95v125c
+set synth_corners_target "ss0p95v125c" 
+ss0p95v125c
+#set synth_corners_target "ss0p95v125c" 
+set synth_corners_slow $slow_corner
+ss0p95v125c_2p25v ss0p95v125c
+set synth_corners_fast $fast_corner
+ff0p95vn40c ff1p16vn40c_2p75v ff1p16vn40c
+set slow_metal Cmax_125
+Cmax_125
+set fast_metal Cmax_125
+Cmax_125
+set lib_types "$lib_dir/stdcell_rvt/db_nldm $lib_dir/stdcell_hvt/db_nldm $lib_dir/io_std/db_nldm $lib_dir/sram/db_nldm $lib_dir/pll/db_nldm"
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/db_nldm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/db_nldm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/db_nldm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/db_nldm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/db_nldm
+set ndm_types "$lib_dir/stdcell_rvt/ndm $lib_dir/stdcell_hvt/ndm $lib_dir/sram/ndm $lib_dir/io_std/ndm  $lib_dir/pll/ndm"
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/ndm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/ndm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/ndm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/ndm  /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/ndm
+set lib_types_target "$lib_dir/stdcell_rvt/db_nldm"
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/db_nldm
+# Get just the main standard cells, srams and IOs
+set sub_lib_type "saed32?vt_ saed32sram_ saed32io_wb_ saed32pll_"
+saed32?vt_ saed32sram_ saed32io_wb_ saed32pll_
+set sub_lib_type_target "saed32rvt_"
+saed32rvt_
+set tech_lef ${hack_lef_dir}/tech.lef 
+/u/bcruik2/hacked_lefs/tech.lef
+# set tech_lef ../../cadence_cap_tech/tech.lef
+set lef_types [list $hack_lef_dir  $lib_dir/sram/lef/ $lib_dir/io_std/lef $lib_dir/pll/lef ]
+/u/bcruik2/hacked_lefs /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/lef/ /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/lef /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/lef
+#set lef_types [list $lib_dir/stdcell_hvt/lef  $lib_dir/stdcell_rvt/lef $lib_dir/stdcell_lvt/lef $lib_dir/sram/lef $lib_dir/io_std/lef $lib_dir/pll/lef ]
+set sub_lef_type "saed32nm_?vt_*.lef saed32sram.lef saed32_io_wb_all.lef saed32_PLL.lef"
+saed32nm_?vt_*.lef saed32sram.lef saed32_io_wb_all.lef saed32_PLL.lef
+set mwlib_types [list $lib_dir/stdcell_hvt/milkyway $lib_dir/stdcell_rvt/milkyway $lib_dir/stdcell_lvt/milkyway  $lib_dir/io_std/milkyway $lib_dir/sram/milkyway $lib_dir/pll/milkyway  ]
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_lvt/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/milkyway
+set sub_mwlib_type "saed32nm_?vt_* SRAM32NM saed32io_wb_* SAED32_PLL_FR*"
+saed32nm_?vt_* SRAM32NM saed32io_wb_* SAED32_PLL_FR*
+#set topdir /u/$env(USER)/PSU_RTL2GDS
+set topdir [ lindex [ regexp -inline "(.*)\(syn\|pt\|apr\)" [pwd] ] 1 ]
+/u/ranjith/ECE581-2025/lab4-akularanjith/
+set FCL 0
+0
+set split_constraints 0
+0
+Warning: No designs to list. (UID-275)
+== ANALYZE autoread all files ==
+
+Starting ANALYZE autoread mode...
+Warning: Defining design library 'WORK' at directory '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/work/WORK_autoread'. (AUTOREAD-107)
+Information: Adding '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.  (AUTOREAD-100)
+Information: Scanning file { fifo1_sram.sv }. (AUTOREAD-303)
+Compiling source file /u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv
+Presto compilation completed successfully.
+Autoread command completed successfully.
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/db_nldm/saed32io_wb_ss0p95v125c_2p25v.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/db_nldm/saed32sram_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/db_nldm/saed32pll_ss0p95v125c_2p25v.db'
+Loading db file '/pkgs/synopsys/2020/design_compiler/syn/Q-2019.12-SP3/libraries/syn/dw_foundation.sldb'
+Loading db file '/pkgs/synopsys/2020/design_compiler/syn/Q-2019.12-SP3/libraries/syn/gtech.db'
+Loading db file '/pkgs/synopsys/2020/design_compiler/syn/Q-2019.12-SP3/libraries/syn/standard.sldb'
+  Loading link library 'saed32rvt_ss0p95v125c'
+  Loading link library 'saed32hvt_ss0p95v125c'
+  Loading link library 'saed32io_wb_ss0p95v125c_2p25v'
+  Loading link library 'saed32sram_ss0p95v125c'
+  Loading link library 'saed32pll_ss0p95v125c_2p25v'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine fifo1_sram line 19 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      wdata_reg      | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (fifo1_sram)
+Elaborated 1 design.
+Current design is now 'fifo1_sram'.
+Information: Building the design 'sync_r2w'. (HDL-193)
+
+Inferred memory devices in process
+        in routine sync_r2w line 148 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    wq2_rptr_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    wq1_rptr_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (sync_r2w)
+Information: Building the design 'sync_w2r'. (HDL-193)
+
+Inferred memory devices in process
+        in routine sync_w2r line 159 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    rq2_wptr_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    rq1_wptr_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (sync_w2r)
+Information: Building the design 'fifomem' instantiated from design 'fifo1_sram' with
+        the parameters "8,10". (HDL-193)
+Warning:  /u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv:72: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+Warning:  /u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv:87: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+
+Statistics for case statements in always block at line 70 in file
+        '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            72            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 85 in file
+        '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            87            |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (fifomem_DATASIZE8_ADDRSIZE10)
+Information: Building the design 'rptr_empty' instantiated from design 'fifo1_sram' with
+        the parameters "10". (HDL-193)
+
+Inferred memory devices in process
+        in routine rptr_empty_ADDRSIZE10 line 178 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      rbin_reg       | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      rptr_reg       | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine rptr_empty_ADDRSIZE10 line 189 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     rempty_reg      | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (rptr_empty_ADDRSIZE10)
+Information: Building the design 'wptr_full' instantiated from design 'fifo1_sram' with
+        the parameters "10". (HDL-193)
+
+Inferred memory devices in process
+        in routine wptr_full_ADDRSIZE10 line 206 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      wbin_reg       | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      wptr_reg       | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine wptr_full_ADDRSIZE10 line 221 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      wfull_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (wptr_full_ADDRSIZE10)
+#####################################################
+proc insert_io { port side} {
+  set this_io io_${side}_${port}
+  if {  $side == "t"   } {
+   if { [get_attribute [get_ports $port ] direction ] == "in" } {
+    create_cell $this_io saed32io_wb_ss0p95v125c_2p25v/I1025_NS
+   } else {
+    create_cell $this_io saed32io_wb_ss0p95v125c_2p25v/D8I1025_NS
+   }
+  }
+  if { $side == "b"  } {
+   if { [get_attribute [get_ports $port ] direction ] == "in" } {
+    create_cell $this_io saed32io_wb_ss0p95v125c_2p25v/I1025_NS
+   } else {
+    create_cell $this_io saed32io_wb_ss0p95v125c_2p25v/D8I1025_NS
+   }
+  }
+  if {  $side == "r"  } {
+   if { [get_attribute [get_ports $port ] direction ] == "in" } {
+    create_cell $this_io saed32io_wb_ss0p95v125c_2p25v/I1025_NS
+   } else {
+    create_cell $this_io saed32io_wb_ss0p95v125c_2p25v/D8I1025_NS
+   }
+  }
+  if { $side == "l"  } {
+   if { [get_attribute [get_ports $port ] direction ] == "in" } {
+    create_cell $this_io saed32io_wb_ss0p95v125c_2p25v/I1025_NS
+   } else {
+    create_cell $this_io saed32io_wb_ss0p95v125c_2p25v/D8I1025_NS
+   }
+  }
+  set pins [ get_pins -of_obj [ get_net $port ] ]
+  foreach_in i $pins { disconnect_net [get_net $port ] $i }
+  set port_net [get_nets -quiet $port ]
+
+  # If only a port is created, the related net is not created and connected to the port.  Do that here.
+  if { [sizeof_collection $port_net ] == 0 } { 
+      create_net $port 
+      connect_net $port [get_ports $port ]
+  }
+
+  connect_net [get_net $port ]  $this_io/PADIO
+  create_net ${this_io}_net
+  foreach_in i $pins { connect_net ${this_io}_net $i }
+  #DIN is input to IO_PAD
+  #DOUT is output of IO_PAD
+  #EN is the IO_PAD enable to output
+  if { [get_attribute [get_ports $port ] direction ] == "in" } {
+     #connect_net [get_nets  *Logic0* ] ${this_io}/EN 
+     connect_net [get_nets  *Logic1* ] ${this_io}/R_EN 
+     connect_net ${this_io}_net ${this_io}/DOUT
+  } else {
+     connect_net [get_nets  *Logic1* ] $this_io/EN 
+     #connect_net [get_nets  *Logic0* ] $this_io/R_EN 
+     connect_net ${this_io}_net $this_io/DIN
+  }
+}
+####################################################
+Creating cell 'io_l_rdata[7]' in design 'fifo1_sram'.
+Disconnecting net 'rdata[7]' from pin 'fifomem/rdata[7]'.
+Connecting net 'rdata[7]' to pin 'io_l_rdata[7]/PADIO'.
+Creating net 'io_l_rdata[7]_net' in design 'fifo1_sram'.
+Connecting net 'io_l_rdata[7]_net' to pin 'fifomem/rdata[7]'.
+Connecting net '*Logic1*' to pin 'io_l_rdata[7]/EN'.
+Connecting net 'io_l_rdata[7]_net' to pin 'io_l_rdata[7]/DIN'.
+Creating cell 'io_l_rdata[6]' in design 'fifo1_sram'.
+Disconnecting net 'rdata[6]' from pin 'fifomem/rdata[6]'.
+Connecting net 'rdata[6]' to pin 'io_l_rdata[6]/PADIO'.
+Creating net 'io_l_rdata[6]_net' in design 'fifo1_sram'.
+Connecting net 'io_l_rdata[6]_net' to pin 'fifomem/rdata[6]'.
+Connecting net '*Logic1*' to pin 'io_l_rdata[6]/EN'.
+Connecting net 'io_l_rdata[6]_net' to pin 'io_l_rdata[6]/DIN'.
+Creating cell 'io_l_rdata[5]' in design 'fifo1_sram'.
+Disconnecting net 'rdata[5]' from pin 'fifomem/rdata[5]'.
+Connecting net 'rdata[5]' to pin 'io_l_rdata[5]/PADIO'.
+Creating net 'io_l_rdata[5]_net' in design 'fifo1_sram'.
+Connecting net 'io_l_rdata[5]_net' to pin 'fifomem/rdata[5]'.
+Connecting net '*Logic1*' to pin 'io_l_rdata[5]/EN'.
+Connecting net 'io_l_rdata[5]_net' to pin 'io_l_rdata[5]/DIN'.
+Creating cell 'io_l_rdata[4]' in design 'fifo1_sram'.
+Disconnecting net 'rdata[4]' from pin 'fifomem/rdata[4]'.
+Connecting net 'rdata[4]' to pin 'io_l_rdata[4]/PADIO'.
+Creating net 'io_l_rdata[4]_net' in design 'fifo1_sram'.
+Connecting net 'io_l_rdata[4]_net' to pin 'fifomem/rdata[4]'.
+Connecting net '*Logic1*' to pin 'io_l_rdata[4]/EN'.
+Connecting net 'io_l_rdata[4]_net' to pin 'io_l_rdata[4]/DIN'.
+Creating cell 'io_l_rdata[3]' in design 'fifo1_sram'.
+Disconnecting net 'rdata[3]' from pin 'fifomem/rdata[3]'.
+Connecting net 'rdata[3]' to pin 'io_l_rdata[3]/PADIO'.
+Creating net 'io_l_rdata[3]_net' in design 'fifo1_sram'.
+Connecting net 'io_l_rdata[3]_net' to pin 'fifomem/rdata[3]'.
+Connecting net '*Logic1*' to pin 'io_l_rdata[3]/EN'.
+Connecting net 'io_l_rdata[3]_net' to pin 'io_l_rdata[3]/DIN'.
+Creating cell 'io_l_rdata[2]' in design 'fifo1_sram'.
+Disconnecting net 'rdata[2]' from pin 'fifomem/rdata[2]'.
+Connecting net 'rdata[2]' to pin 'io_l_rdata[2]/PADIO'.
+Creating net 'io_l_rdata[2]_net' in design 'fifo1_sram'.
+Connecting net 'io_l_rdata[2]_net' to pin 'fifomem/rdata[2]'.
+Connecting net '*Logic1*' to pin 'io_l_rdata[2]/EN'.
+Connecting net 'io_l_rdata[2]_net' to pin 'io_l_rdata[2]/DIN'.
+Creating cell 'io_l_rdata[1]' in design 'fifo1_sram'.
+Disconnecting net 'rdata[1]' from pin 'fifomem/rdata[1]'.
+Connecting net 'rdata[1]' to pin 'io_l_rdata[1]/PADIO'.
+Creating net 'io_l_rdata[1]_net' in design 'fifo1_sram'.
+Connecting net 'io_l_rdata[1]_net' to pin 'fifomem/rdata[1]'.
+Connecting net '*Logic1*' to pin 'io_l_rdata[1]/EN'.
+Connecting net 'io_l_rdata[1]_net' to pin 'io_l_rdata[1]/DIN'.
+Creating cell 'io_l_rdata[0]' in design 'fifo1_sram'.
+Disconnecting net 'rdata[0]' from pin 'fifomem/rdata[0]'.
+Connecting net 'rdata[0]' to pin 'io_l_rdata[0]/PADIO'.
+Creating net 'io_l_rdata[0]_net' in design 'fifo1_sram'.
+Connecting net 'io_l_rdata[0]_net' to pin 'fifomem/rdata[0]'.
+Connecting net '*Logic1*' to pin 'io_l_rdata[0]/EN'.
+Connecting net 'io_l_rdata[0]_net' to pin 'io_l_rdata[0]/DIN'.
+Creating cell 'io_r_wdata_in[7]' in design 'fifo1_sram'.
+Disconnecting net 'wdata_in[7]' from pin 'wdata_reg[7]/next_state'.
+Connecting net 'wdata_in[7]' to pin 'io_r_wdata_in[7]/PADIO'.
+Creating net 'io_r_wdata_in[7]_net' in design 'fifo1_sram'.
+Connecting net 'io_r_wdata_in[7]_net' to pin 'wdata_reg[7]/next_state'.
+Connecting net '*Logic1*' to pin 'io_r_wdata_in[7]/R_EN'.
+Connecting net 'io_r_wdata_in[7]_net' to pin 'io_r_wdata_in[7]/DOUT'.
+Creating cell 'io_r_wdata_in[6]' in design 'fifo1_sram'.
+Disconnecting net 'wdata_in[6]' from pin 'wdata_reg[6]/next_state'.
+Connecting net 'wdata_in[6]' to pin 'io_r_wdata_in[6]/PADIO'.
+Creating net 'io_r_wdata_in[6]_net' in design 'fifo1_sram'.
+Connecting net 'io_r_wdata_in[6]_net' to pin 'wdata_reg[6]/next_state'.
+Connecting net '*Logic1*' to pin 'io_r_wdata_in[6]/R_EN'.
+Connecting net 'io_r_wdata_in[6]_net' to pin 'io_r_wdata_in[6]/DOUT'.
+Creating cell 'io_r_wdata_in[5]' in design 'fifo1_sram'.
+Disconnecting net 'wdata_in[5]' from pin 'wdata_reg[5]/next_state'.
+Connecting net 'wdata_in[5]' to pin 'io_r_wdata_in[5]/PADIO'.
+Creating net 'io_r_wdata_in[5]_net' in design 'fifo1_sram'.
+Connecting net 'io_r_wdata_in[5]_net' to pin 'wdata_reg[5]/next_state'.
+Connecting net '*Logic1*' to pin 'io_r_wdata_in[5]/R_EN'.
+Connecting net 'io_r_wdata_in[5]_net' to pin 'io_r_wdata_in[5]/DOUT'.
+Creating cell 'io_r_wdata_in[4]' in design 'fifo1_sram'.
+Disconnecting net 'wdata_in[4]' from pin 'wdata_reg[4]/next_state'.
+Connecting net 'wdata_in[4]' to pin 'io_r_wdata_in[4]/PADIO'.
+Creating net 'io_r_wdata_in[4]_net' in design 'fifo1_sram'.
+Connecting net 'io_r_wdata_in[4]_net' to pin 'wdata_reg[4]/next_state'.
+Connecting net '*Logic1*' to pin 'io_r_wdata_in[4]/R_EN'.
+Connecting net 'io_r_wdata_in[4]_net' to pin 'io_r_wdata_in[4]/DOUT'.
+Creating cell 'io_r_wdata_in[3]' in design 'fifo1_sram'.
+Disconnecting net 'wdata_in[3]' from pin 'wdata_reg[3]/next_state'.
+Connecting net 'wdata_in[3]' to pin 'io_r_wdata_in[3]/PADIO'.
+Creating net 'io_r_wdata_in[3]_net' in design 'fifo1_sram'.
+Connecting net 'io_r_wdata_in[3]_net' to pin 'wdata_reg[3]/next_state'.
+Connecting net '*Logic1*' to pin 'io_r_wdata_in[3]/R_EN'.
+Connecting net 'io_r_wdata_in[3]_net' to pin 'io_r_wdata_in[3]/DOUT'.
+Creating cell 'io_r_wdata_in[2]' in design 'fifo1_sram'.
+Disconnecting net 'wdata_in[2]' from pin 'wdata_reg[2]/next_state'.
+Connecting net 'wdata_in[2]' to pin 'io_r_wdata_in[2]/PADIO'.
+Creating net 'io_r_wdata_in[2]_net' in design 'fifo1_sram'.
+Connecting net 'io_r_wdata_in[2]_net' to pin 'wdata_reg[2]/next_state'.
+Connecting net '*Logic1*' to pin 'io_r_wdata_in[2]/R_EN'.
+Connecting net 'io_r_wdata_in[2]_net' to pin 'io_r_wdata_in[2]/DOUT'.
+Creating cell 'io_r_wdata_in[1]' in design 'fifo1_sram'.
+Disconnecting net 'wdata_in[1]' from pin 'wdata_reg[1]/next_state'.
+Connecting net 'wdata_in[1]' to pin 'io_r_wdata_in[1]/PADIO'.
+Creating net 'io_r_wdata_in[1]_net' in design 'fifo1_sram'.
+Connecting net 'io_r_wdata_in[1]_net' to pin 'wdata_reg[1]/next_state'.
+Connecting net '*Logic1*' to pin 'io_r_wdata_in[1]/R_EN'.
+Connecting net 'io_r_wdata_in[1]_net' to pin 'io_r_wdata_in[1]/DOUT'.
+Creating cell 'io_r_wdata_in[0]' in design 'fifo1_sram'.
+Disconnecting net 'wdata_in[0]' from pin 'wdata_reg[0]/next_state'.
+Connecting net 'wdata_in[0]' to pin 'io_r_wdata_in[0]/PADIO'.
+Creating net 'io_r_wdata_in[0]_net' in design 'fifo1_sram'.
+Connecting net 'io_r_wdata_in[0]_net' to pin 'wdata_reg[0]/next_state'.
+Connecting net '*Logic1*' to pin 'io_r_wdata_in[0]/R_EN'.
+Connecting net 'io_r_wdata_in[0]_net' to pin 'io_r_wdata_in[0]/DOUT'.
+Creating cell 'io_t_rempty' in design 'fifo1_sram'.
+Disconnecting net 'rempty' from pin 'rptr_empty/rempty'.
+Connecting net 'rempty' to pin 'io_t_rempty/PADIO'.
+Creating net 'io_t_rempty_net' in design 'fifo1_sram'.
+Connecting net 'io_t_rempty_net' to pin 'rptr_empty/rempty'.
+Connecting net '*Logic1*' to pin 'io_t_rempty/EN'.
+Connecting net 'io_t_rempty_net' to pin 'io_t_rempty/DIN'.
+Creating cell 'io_t_wfull' in design 'fifo1_sram'.
+Disconnecting net 'wfull' from pin 'fifomem/wfull'.
+Disconnecting net 'wfull' from pin 'wptr_full/wfull'.
+Connecting net 'wfull' to pin 'io_t_wfull/PADIO'.
+Creating net 'io_t_wfull_net' in design 'fifo1_sram'.
+Connecting net 'io_t_wfull_net' to pin 'fifomem/wfull'.
+Connecting net 'io_t_wfull_net' to pin 'wptr_full/wfull'.
+Connecting net '*Logic1*' to pin 'io_t_wfull/EN'.
+Connecting net 'io_t_wfull_net' to pin 'io_t_wfull/DIN'.
+Creating cell 'io_b_rrst_n' in design 'fifo1_sram'.
+Disconnecting net 'rrst_n' from pin 'rptr_empty/rrst_n'.
+Disconnecting net 'rrst_n' from pin 'sync_w2r/rrst_n'.
+Connecting net 'rrst_n' to pin 'io_b_rrst_n/PADIO'.
+Creating net 'io_b_rrst_n_net' in design 'fifo1_sram'.
+Connecting net 'io_b_rrst_n_net' to pin 'rptr_empty/rrst_n'.
+Connecting net 'io_b_rrst_n_net' to pin 'sync_w2r/rrst_n'.
+Connecting net '*Logic1*' to pin 'io_b_rrst_n/R_EN'.
+Connecting net 'io_b_rrst_n_net' to pin 'io_b_rrst_n/DOUT'.
+Creating cell 'io_b_rclk' in design 'fifo1_sram'.
+Disconnecting net 'rclk' from pin 'rptr_empty/rclk'.
+Disconnecting net 'rclk' from pin 'fifomem/rclk'.
+Disconnecting net 'rclk' from pin 'sync_w2r/rclk'.
+Connecting net 'rclk' to pin 'io_b_rclk/PADIO'.
+Creating net 'io_b_rclk_net' in design 'fifo1_sram'.
+Connecting net 'io_b_rclk_net' to pin 'rptr_empty/rclk'.
+Connecting net 'io_b_rclk_net' to pin 'fifomem/rclk'.
+Connecting net 'io_b_rclk_net' to pin 'sync_w2r/rclk'.
+Connecting net '*Logic1*' to pin 'io_b_rclk/R_EN'.
+Connecting net 'io_b_rclk_net' to pin 'io_b_rclk/DOUT'.
+Creating cell 'io_b_rinc' in design 'fifo1_sram'.
+Disconnecting net 'rinc' from pin 'rptr_empty/rinc'.
+Connecting net 'rinc' to pin 'io_b_rinc/PADIO'.
+Creating net 'io_b_rinc_net' in design 'fifo1_sram'.
+Connecting net 'io_b_rinc_net' to pin 'rptr_empty/rinc'.
+Connecting net '*Logic1*' to pin 'io_b_rinc/R_EN'.
+Connecting net 'io_b_rinc_net' to pin 'io_b_rinc/DOUT'.
+Creating cell 'io_b_wrst_n' in design 'fifo1_sram'.
+Disconnecting net 'wrst_n' from pin 'wptr_full/wrst_n'.
+Disconnecting net 'wrst_n' from pin 'sync_r2w/wrst_n'.
+Disconnecting net 'wrst_n' from pin 'I_0/A'.
+Connecting net 'wrst_n' to pin 'io_b_wrst_n/PADIO'.
+Creating net 'io_b_wrst_n_net' in design 'fifo1_sram'.
+Connecting net 'io_b_wrst_n_net' to pin 'wptr_full/wrst_n'.
+Connecting net 'io_b_wrst_n_net' to pin 'sync_r2w/wrst_n'.
+Connecting net 'io_b_wrst_n_net' to pin 'I_0/A'.
+Connecting net '*Logic1*' to pin 'io_b_wrst_n/R_EN'.
+Connecting net 'io_b_wrst_n_net' to pin 'io_b_wrst_n/DOUT'.
+Creating cell 'io_b_wclk2x' in design 'fifo1_sram'.
+Disconnecting net 'wclk2x' from pin 'wdata_reg[0]/clocked_on'.
+Disconnecting net 'wclk2x' from pin 'wdata_reg[1]/clocked_on'.
+Disconnecting net 'wclk2x' from pin 'wdata_reg[2]/clocked_on'.
+Disconnecting net 'wclk2x' from pin 'wdata_reg[3]/clocked_on'.
+Disconnecting net 'wclk2x' from pin 'wdata_reg[4]/clocked_on'.
+Disconnecting net 'wclk2x' from pin 'wdata_reg[5]/clocked_on'.
+Disconnecting net 'wclk2x' from pin 'wdata_reg[6]/clocked_on'.
+Disconnecting net 'wclk2x' from pin 'wdata_reg[7]/clocked_on'.
+Connecting net 'wclk2x' to pin 'io_b_wclk2x/PADIO'.
+Creating net 'io_b_wclk2x_net' in design 'fifo1_sram'.
+Connecting net 'io_b_wclk2x_net' to pin 'wdata_reg[0]/clocked_on'.
+Connecting net 'io_b_wclk2x_net' to pin 'wdata_reg[1]/clocked_on'.
+Connecting net 'io_b_wclk2x_net' to pin 'wdata_reg[2]/clocked_on'.
+Connecting net 'io_b_wclk2x_net' to pin 'wdata_reg[3]/clocked_on'.
+Connecting net 'io_b_wclk2x_net' to pin 'wdata_reg[4]/clocked_on'.
+Connecting net 'io_b_wclk2x_net' to pin 'wdata_reg[5]/clocked_on'.
+Connecting net 'io_b_wclk2x_net' to pin 'wdata_reg[6]/clocked_on'.
+Connecting net 'io_b_wclk2x_net' to pin 'wdata_reg[7]/clocked_on'.
+Connecting net '*Logic1*' to pin 'io_b_wclk2x/R_EN'.
+Connecting net 'io_b_wclk2x_net' to pin 'io_b_wclk2x/DOUT'.
+Creating cell 'io_b_wclk' in design 'fifo1_sram'.
+Disconnecting net 'wclk' from pin 'wptr_full/wclk'.
+Disconnecting net 'wclk' from pin 'fifomem/wclk'.
+Disconnecting net 'wclk' from pin 'sync_r2w/wclk'.
+Connecting net 'wclk' to pin 'io_b_wclk/PADIO'.
+Creating net 'io_b_wclk_net' in design 'fifo1_sram'.
+Connecting net 'io_b_wclk_net' to pin 'wptr_full/wclk'.
+Connecting net 'io_b_wclk_net' to pin 'fifomem/wclk'.
+Connecting net 'io_b_wclk_net' to pin 'sync_r2w/wclk'.
+Connecting net '*Logic1*' to pin 'io_b_wclk/R_EN'.
+Connecting net 'io_b_wclk_net' to pin 'io_b_wclk/DOUT'.
+Creating cell 'io_b_winc' in design 'fifo1_sram'.
+Disconnecting net 'winc' from pin 'wptr_full/winc'.
+Disconnecting net 'winc' from pin 'fifomem/wclken'.
+Connecting net 'winc' to pin 'io_b_winc/PADIO'.
+Creating net 'io_b_winc_net' in design 'fifo1_sram'.
+Connecting net 'io_b_winc_net' to pin 'wptr_full/winc'.
+Connecting net 'io_b_winc_net' to pin 'fifomem/wclken'.
+Connecting net '*Logic1*' to pin 'io_b_winc/R_EN'.
+Connecting net 'io_b_winc_net' to pin 'io_b_winc/DOUT'.
+Warning: The specified replacement character (_) is conflicting with the specified allowed or restricted character.   (UCN-4)
+if { [info exists synopsys_program_name ] && (($synopsys_program_name == "icc2_shell") || $synopsys_program_name == "fc_shell" ) } {
+    puts " Creating ICC2 MCMM "
+    create_mode func
+    create_corner slow
+    create_scenario -mode func -corner slow -name func_slow
+    current_scenario func_slow
+    set_operating_conditions ss0p75v125c
+    read_parasitic_tech -tlup $tlu_dir/saed32nm_1p9m_Cmax.tluplus -layermap $tlu_dir/saed32nm_tf_itf_tluplus.map -name Cmax
+    read_parasitic_tech -tlup $tlu_dir/saed32nm_1p9m_Cmin.tluplus -layermap $tlu_dir/saed32nm_tf_itf_tluplus.map -name Cmin
+    set_parasitic_parameters -early_spec Cmax -early_temperature 125
+    set_parasitic_parameters -late_spec Cmax -late_temperature 125
+    #set_parasitic_parameters -early_spec 1p9m_Cmax -early_temperature 125 -corner default
+    #set_parasitic_parameters -late_spec 1p9m_Cmax -late_temperature 125 -corner default
+
+    #set_scenario_status  default -active false
+    set_scenario_status func_slow -active true -hold true -setup true
+}
+set wclk_period 2.0
+2.0
+set rclk_period 2.0
+2.0
+set wclk2x_period [ expr $wclk_period / 2 ]
+1.0
+create_clock -name "wclk" -period $wclk_period  wclk
+1
+create_clock -name "rclk" -period $rclk_period rclk
+1
+#Add the new clock.  Make it 1/2 the wclk period since it is called wclk2x
+create_clock -name "wclk2x" -period $wclk2x_period wclk2x
+1
+set_false_path -from [get_clocks wclk ] -to [get_clocks rclk]
+1
+set_false_path -from [get_clocks rclk ] -to [ get_clocks wclk]
+1
+# Add input/output delays in relation to related clocks
+# Can tell the related clock by doing report_timing -group INPUTS  or -group OUTPUTS after using group_path
+# External delay should be some percentage of clock period.
+# Tune/relax if violating; most concerned about internal paths.
+# I like set_driving_cell to a std cell from the library.  set_drive works to.
+# set_load
+#group_path -name INTERNAL -from [all_clocks] -to [all_clocks ]
+group_path -name INPUTS -from [ get_ports -filter "direction==in&&full_name!~*clk*" ]
+1
+group_path -name OUTPUTS -to [ get_ports -filter "direction==out" ]
+1
+Current design is 'fifo1_sram'.
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Choosing a test methodology will restrict the optimization of sequential cells. (UIO-12)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | Q-2019.12-DWBB_201912.3 |     *     |
+| Licensed DW Building Blocks        | Q-2019.12-DWBB_201912.3 |     *     |
+============================================================================
+
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 65 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+  Simplifying Design 'fifo1_sram'
+
+Loaded alib file './alib-52/saed32rvt_ss0p95v125c.db.alib'
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'fifomem_DATASIZE8_ADDRSIZE10'
+  Processing 'fifo1_sram'
+  Processing 'wptr_full_ADDRSIZE10'
+Information: Added key list 'DesignWare' to design 'wptr_full_ADDRSIZE10'. (DDB-72)
+Information: In design 'wptr_full_ADDRSIZE10', the register 'wptr_reg_10_' is removed because it is merged to 'wbin_reg_10_'. (OPT-1215)
+ Implement Synthetic for 'wptr_full_ADDRSIZE10'.
+  Processing 'rptr_empty_ADDRSIZE10'
+Information: Added key list 'DesignWare' to design 'rptr_empty_ADDRSIZE10'. (DDB-72)
+Information: In design 'rptr_empty_ADDRSIZE10', the register 'rptr_reg_10_' is removed because it is merged to 'rbin_reg_10_'. (OPT-1215)
+ Implement Synthetic for 'rptr_empty_ADDRSIZE10'.
+  Processing 'sync_w2r'
+  Processing 'sync_r2w'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'PMT3_RVT' in the library 'saed32rvt_ss0p95v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'PMT2_RVT' in the library 'saed32rvt_ss0p95v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'PMT1_RVT' in the library 'saed32rvt_ss0p95v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'NMT3_RVT' in the library 'saed32rvt_ss0p95v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'NMT2_RVT' in the library 'saed32rvt_ss0p95v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'NMT1_RVT' in the library 'saed32rvt_ss0p95v125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Information: Automatic shift-register identification is enabled for scan. Not all registers will be scan-replaced. (OPT-467)
+Information: Complementing port 'rempty' in design 'rptr_empty_ADDRSIZE10'.
+         The new name of the port is 'rempty_BAR'. (OPT-319)
+Information: Complementing port 'wfull' in design 'wptr_full_ADDRSIZE10'.
+         The new name of the port is 'wfull_BAR'. (OPT-319)
+
+Threshold voltage group cell usage:
+>> saed32cell_svt 100.00%
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+  Mapping Optimization (Phase 1)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:50  370680.5      0.00       0.0     125.9                           1106771968.0000
+    0:00:50  370680.5      0.00       0.0     125.9                           1106771968.0000
+
+Threshold voltage group cell usage:
+>> saed32cell_svt 100.00%
+
+  Beginning Constant Register Removal
+  -----------------------------------
+
+Threshold voltage group cell usage:
+>> saed32cell_svt 100.00%
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+
+Threshold voltage group cell usage:
+>> saed32cell_svt 100.00%
+
+  Beginning Isolate Ports
+  -----------------------
+
+Threshold voltage group cell usage:
+>> saed32cell_svt 100.00%
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:50  370672.3      0.00       0.0     141.9                           1107791104.0000
+    0:00:50  370672.3      0.00       0.0     141.9                           1107791104.0000
+    0:00:50  370672.3      0.00       0.0     141.9                           1107791104.0000
+    0:00:50  370672.3      0.00       0.0     141.9                           1107791104.0000
+
+Threshold voltage group cell usage:
+>> saed32cell_svt 100.00%
+    0:00:50  370660.4      0.00       0.0     141.9                           1107680384.0000
+    0:00:50  370660.4      0.00       0.0     141.9                           1107680384.0000
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:00:50  370659.1      0.00       0.0     141.9                           1107654400.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107654400.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107654400.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:50  370659.1      0.00       0.0     141.9                           1107499648.0000
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+  Global Optimization (Phase 32)
+    0:00:50  370674.9      0.00       0.0       3.9                           1111175296.0000
+    0:00:50  370674.9      0.00       0.0       3.9                           1111175296.0000
+
+Threshold voltage group cell usage:
+>> saed32cell_svt 100.00%
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:50  370674.9      0.00       0.0       3.9                           1111175296.0000
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+    0:00:51  370674.9      0.00       0.0       3.9                           1110004096.0000
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/db_nldm/saed32io_wb_ss0p95v125c_2p25v.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/db_nldm/saed32sram_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/db_nldm/saed32pll_ss0p95v125c_2p25v.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated black box outputs. (PWR-428)
+Writing verilog file '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/outputs/fifo1_sram.dc.vg'.
+Warning: No PG information is available for design. (UPF-663)
+Writing verilog file '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/outputs/fifo1_sram.dc.pg.vg'.
+Writing ddc file '../outputs/fifo1_sram.dc.ddc'.
+1
+dc_shell> source ../scripts/proc.tcl
+Error: while parsing filter expression: syntax error
+        at 'ref_name eq "D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT"
+            _________^' (FLT-003)
+D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT 0
+dc_shell> set instances [get_cells -filter "is_hierarchical==false"]
+{io_l_rdata_7_ io_l_rdata_6_ io_l_rdata_5_ io_l_rdata_4_ io_l_rdata_3_ io_l_rdata_2_ io_l_rdata_1_ io_l_rdata_0_ io_r_wdata_in_7_ io_r_wdata_in_6_ io_r_wdata_in_5_ io_r_wdata_in_4_ io_r_wdata_in_3_ io_r_wdata_in_2_ io_r_wdata_in_1_ io_r_wdata_in_0_ io_t_rempty io_t_wfull io_b_rrst_n io_b_rclk io_b_rinc io_b_wrst_n io_b_wclk2x io_b_wclk io_b_winc wdata_reg_7_ wdata_reg_6_ wdata_reg_5_ wdata_reg_4_ wdata_reg_3_ wdata_reg_2_ wdata_reg_1_ wdata_reg_0_ U3 U4 U5 U6 U7 U8 U9 U10 U11 U12 U13 U14}
+dc_shell> set ref_names {}
+dc_shell> foreach inst $instances {
+        lappend ref_names [get_attribute $inst ref_name]
+    }
+dc_shell> puts "ref_names"
+ref_names
+dc_shell> puts "$ref_names"
+{D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT}
+dc_shell> set unique_ref_names [lsort -unique $ref_names]
+{D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT}
+dc_shell> puts "$unique_ref_names"
+{D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT}
+dc_shell> foreach ref_name $unique_ref_names {
+        # Ensure the filter expression handles spaces correctly
+        set count [llength [filter_collection $instances [format {ref_name eq "%s"} $ref_name]]]
+        puts "$ref_name $count"
+    }
+Error: while parsing filter expression: syntax error
+        at 'ref_name eq "D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT"
+            _________^' (FLT-003)
+D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT 0
+dc_shell> man filter_collection
+2.  Synopsys Commands                                        Command Reference
+                               filter_collection
+
+NAME
+       filter_collection
+              Filters  an  existing collection, resulting in a new collection.
+              The base collection remains unchanged.
+
+SYNTAX
+       collection filter_collection
+               [-regexp]
+               [-nocase]
+               collection1
+               expression
+
+   Data Types
+       collection1     collection
+       expression      string
+
+ARGUMENTS
+       -regexp
+              Specifies that the  =~ and !~ filter  operators  will  use  real
+              regular expressions.  By default, the =~ and !~ filter operators
+              use simple wildcard pattern matching with the * and ? wildcards.
+
+       -nocase
+              Makes the pattern match case-insensitive.
+
+       collection1
+              Specifies  the  base collection to be filtered.  This collection
+              is copied to the result collection.  Objects  are  removed  from
+              the result collection if they are evaluated as false by the con-
+              ditional expression value.  Substitute the collection  you  want
+              for collection1.
+
+       expression
+              Specifies  an expression with which to filter collection1.  Sub-
+              stitute the string you want for expression.
+
+DESCRIPTION
+       Filters an existing collection, resulting in  a  new  collection.   The
+       base collection remains unchanged.  In many cases, application commands
+       that create collections support a -filter option that filters  as  part
+       of  the  collection  process, rather than after the collection has been
+       made.
+
+       This type of filtering is almost always more efficient than  using  the
+       filter_collection command after a collection has been formed.  The fil-
+       ter_collection command is most useful if you plan to  filter  the  same
+       large collection many times using different criteria.
+
+       The  filter_collection command results in either a new collection or an
+       empty string.  A resulting new collection contains the  subset  of  the
+       objects  in the input collection1.  A resulting empty string (the empty
+       collection) indicates that the expression filtered out all elements  of
+       the input collection1.
+
+       The  basic  form of the conditional expression is a series of relations
+       joined together with AND and OR operators.   Parentheses  ()  are  also
+       supported.   The basic relation compares an attribute name with a value
+       through a relational operator.
+
+       For example,
+
+         is_hierarchical == true and area <= 6
+
+       If an attribute is  a  collection  attribute  that  contains  a  single
+       object,  then  you  can query an attribute value from that object using
+       "." to name the attribute on the other object. The "." operator can  be
+       chained. For example.
+
+         owner.is_hierarchical == true and owner.area <= 6
+         shape.net.name==reset
+
+       The  value side of a relation can be a simple string, quoted string, or
+       an attribute name prefixed with "@". For example:
+
+         input_delay<=@output_delay
+         input_delay<=0.24
+         name=="@literal_name"
+
+The relational operators are
+
+  ==   Equal
+  !=   Not equal
+  >    Greater than
+  <    Less than
+  >=   Greater than or equal to
+  <=   Less than or equal to
+  =~   Matches pattern
+  !~   Does not match pattern
+
+The basic relational rules are
+
+ o String attributes can be compared with any operator.
+
+ o Numeric attributes cannot be compared with pattern match operators.
+
+ o Boolean attributes can be compared only with == and !=.  The value  can  be
+  only either true or false.
+
+Existence  relations  determine  if an attribute is defined or not defined for
+the object. For example,
+
+  (sense == setup_clk_rise) and defined(sdf_cond)
+
+The existence operators are
+
+  defined
+  undefined
+  !defined
+
+These operators apply to any attribute as long as it is valid for  the  object
+class.
+
+Collection attributes support a special sizeof(attrName) operator that returns
+the number of objects in the attribute. If the attribute is not set then 0  is
+returned.
+
+The  filter_collection  command has a -regexp option that uses regular expres-
+sions when matching for string attributes.   Regular  expression  matching  is
+done  in  the  same  way as in the Tcl regexp command.  When using the -regexp
+option, take care in the way you quote the  filter  expression.   Using  rigid
+quoting with curly braces around regular expressions is recommended.
+
+Regular expressions are always anchored; that is, the expression is assumed to
+begin matching at the beginning of an object name and end matching at the  end
+of  an  object  name.   You  can widen the search simply by adding ".*" to the
+beginning or end of the expressions as  needed.   You  can  make  the  regular
+expression search case-insensitive by using the -nocase option.
+
+If  the  application  variable  filter_collection_extended_syntax is true then
+mathematical expressions are supported too. All function names  must  be  pre-
+fixed  with  the  '#'  in  order  to disambiguate the function names from sub-
+scripted attribue names (i.e. "#sin(attr)"). In order to use a math expression
+on  the  right  hand side of a comparison, the expression must be contained in
+parenthesis. This is required  for  backward  compatibility  with  the  legacy
+expression syntax as strings on the right do not require quoting.
+
+When extended syntax is on filters can also match against glob style subscript
+patterns (i.e. "input_delay(*)<1.0"). In that case the term evaluates to  true
+if any subscript satisfies the condition.
+
+Additionally  when  extended  syntax  is  on,  a  filter  may  refer to nested
+attributes that may imply multiple objects in a collection (i.e. "pins.capaci-
+tance==0.2").  In  that  case  the  term  returns  true  if any of the objects
+referred to in the have an attribute value satisfying the condition.
+
+EXAMPLES
+       The following example from PrimeTime creates a collection of only hier-
+       archical cells.
+
+         prompt> set a [filter_collection [get_cells *] \
+         "is_hierarchical == true"]
+         {Adder1 Adder2}
+
+       The following example from PrimeTime uses existence operators to create
+       a collection of all nonmoded cell timing_arc  objects  in  the  current
+       design.
+
+         prompt> set b [filter_collection \
+                     [get_timing_arcs -of_objects [get_cells *]] \
+                     "undefined(mode)"]
+
+         The following example finds all cells from {U0(1) U1(1) U0(0) U1(0)}
+         with the index (0). Notice the round brackets used for the index.
+
+         prompt> filter_collection -regexp [get_cells] {full_name =~ "U.*\(0\)"}
+         {U0(0) U1(0)}
+
+       The following example finds all  ports  from  in[18]  to  in[23].   The
+       placement of double quotes and backslashes is necessary to avoid syntax
+       errors.
+
+         prompt> filter_collection [get_ports] -regexp {name=~ "in\[(1[8-9]|2[0-3])\]"}
+         {in[23] in[22] in[21] in[20] in[19] in[18]}
+
+       The following example finds the U2 and  U4  cells,  using  the  -nocase
+       option:
+
+         prompt> filter_collection [get_cells] -regexp -nocase {name =~ u[24]}
+         {U2 U4}
+
+SEE ALSO
+       collections(2)
+       regexp(2)
+       filter_collection_extended_syntax(3)
+
+                          Version Q-2019.12-SP3
+            Copyright (c) 2020 Synopsys, Inc. All rights reserved.
+dc_shell> foreach ref_name $unique_ref_names {
+        # Ensure the filter expression handles spaces correctly
+        set count [llength [filter_collection $instances [format {ref_name =~ $ref_name}]]
+        puts "$ref_name $count"
+    }
+Error: missing close-bracket
+        Use error_info for more info. (CMD-013)
+dc_shell> foreach ref_name $unique_ref_names {
+        # Ensure the filter expression handles spaces correctly
+        set count [llength [filter_collection $instances {ref_name =~ $ref_name}]]
+        puts "$ref_name $count"
+    }
+D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT 0
+dc_shell> source ../scripts/proc.tcl
+Error: can't read "instance": no such variable
+        Use error_info for more info. (CMD-013)
+dc_shell> source ../scripts/proc.tcl
+_sel280
+{D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT}
+D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT 0
+dc_shell> man write
+2.  Synopsys Commands                                        Command Reference
+                                     write
+
+NAME
+       write  Alias for the write_file command.
+
+DESCRIPTION
+       The  write  command  has  been renamed write_file. The write command is
+       provided so that older scripts will run correctly,  but  it  is  recom-
+       mended that you use the command's actual name, write_file.
+
+       See the write_file man page for information about this command.
+
+SEE ALSO
+       write_file(2)
+
+                          Version Q-2019.12-SP3
+            Copyright (c) 2020 Synopsys, Inc. All rights reserved.
+dc_shell> man write_file
+2.  Synopsys Commands                                        Command Reference
+                                  write_file
+
+NAME
+       write_file
+              Writes a design netlist or schematic from memory to a file.
+
+SYNTAX
+       int write_file
+               [-format output_format]
+               [-hierarchy]
+               [-no_implicit]
+               [-output output_file_name]
+               [-scenarios scenario_list]
+               [-library library_name]
+               [-include_anchor_cells]
+               [-exclude_references reference_names]
+               [-pg]
+               [design_list]
+
+   Data Types
+       output_format        string
+       output_file_name     string
+       scenario_list        list
+       library_name         string
+       reference_names      list
+       design_list          list
+
+ARGUMENTS
+       -format output_format
+              Specifies  the  output  format  of the design.  Supported output
+              formats and their descriptions are as follows:
+
+                ddc - Synopsys internal database format (the default format)
+                verilog - IEEE Standard Verilog
+                svsim - SystemVerilog netlist wrapper
+                vhdl - IEEE Standard VHDL
+
+              Specifying -format svsim causes the tool to write out  only  the
+              netlist  wrapper, not the gate-level design under test (DUT). To
+              write out the gate-level DUT use -format verilog.   For  further
+              information see the SystemVerilog User Guide.
+
+       -hierarchy
+              Writes  out  all the designs in the hierarchy, starting from the
+              designs specified in design_list. If design_list is  not  speci-
+              fied,  the  current  design's  hierarchy is written. If a design
+              hierarchy is not completely linked, the unresolved design refer-
+              ences are not written out.
+
+              If  the output format is ddc, block abstractions are not written
+              out unless design_list consists of a single design that  is  the
+              top   of   the  block  abstraction's  hierarchy.  Alternatively,
+              design_list can be left empty if the current design is  the  top
+              of  the block abstraction's hierarchy.  The -hierarchy and -out-
+              put options are required when writing block  abstractions  to  a
+              .ddc file.
+
+       -no_implicit
+              Specifies  not  to  write  (save) the synthetic design hierarchy
+              that is  implicitly  created  during  the  optimization  of  the
+              design.   By  default, the command writes designs created in the
+              hierarchy through the use of synthetic libraries even if you  do
+              not use the -hierarchy option.
+
+       -output output_file_name
+              Specifies a single file into which designs are to be written. By
+              default, the command writes each design  into  a  separate  file
+              named  design.suffix,  where  design  is the name of each design
+              (with a full UNIX path) and suffix is the default suffix for the
+              specified format. The default format suffixes and their descrip-
+              tions are as follows:
+
+                 .ddc - ddc
+                 .v   - verilog
+                 .sv  - svsim
+                 .vhd - vhdl
+
+              The -output option is required if the output format is .ddc  and
+              a block abstraction hierarchy is being written.
+
+       -scenarios scenario_list
+              Lists scenarios whose constraints should be included in the out-
+              put file.  This option applies to ddc format only.  By  default,
+              the command includes all scenarios.
+
+       -library library_name
+              Writes  the  Synopsys  database  format  object to the specified
+              library.
+
+       -include_anchor_cells
+              Includes anchor cells created during linking (if any) when  gen-
+              erating  Verilog output.  These are, by default, filtered out in
+              Verilog output.  This option is supported only by DC Explorer.
+
+       -exclude_references reference_names
+              Specifies the reference cell names, separated by  space  charac-
+              ters,  for  which  all  cell instances must not be written.  The
+              -exclude_references option can only be  used  with  the  -format
+              verilog option.
+
+       -pg    Includes  PG  nets  and ports in Verilog output.  If the RTL was
+              read with the dc_allow_rtl_pg variable set  to  true,  the  data
+              obtained  from  the original RTL is used.  Otherwise, PG connec-
+              tions will be inferred from the design's UPF  specification,  if
+              present.   For  more  information, see the "Instantiating RTL PG
+              Pins in Non-UPF Designs" section in the "Analyzing and Resolving
+              Design Problems" chapter in the Design Compiler User Guide.  The
+              -pg option can only be used with the -format verilog option.
+
+       design_list
+              Lists the designs or design files to be written. If  design_list
+              is omitted, the current design is used as the design list.
+
+              Block  abstractions  are only written to .ddc files when exactly
+              one design is specified, or the current design is inferred,  and
+              that  design is the top design of a block abstraction hierarchy.
+
+              For other output formats, such as .v, if both block abstractions
+              and  non-block  abstractions  exist in the design list, only the
+              non-block abstractions are written out. However, if  only  block
+              abstractions  exist  in  the design list, the block abstractions
+              are written out.
+
+              Designs are not removed from memory after they have  been  writ-
+              ten;  to remove a design from memory, use the remove_design com-
+              mand.
+
+DESCRIPTION
+       This command saves the designs from memory to disk.   If  a  design  is
+       modified  in  the tool, you must use the write_file command to save the
+       design.
+
+   Multicorner-Multimode Support
+       When writing in ddc format, constraint data for all scenarios is  saved
+       by  default.   You  can  use the -scenarios option to specify a list of
+       scenarios that should be saved.
+
+EXAMPLES
+       The following examples show how to save designs in ddc format.
+
+       This example shows how to write out all designs in the current  hierar-
+       chy.   Since  no  output file is specified, each design is written to a
+       separate file using the design name as the base of the file name:
+
+         prompt> write_file -hierarchy
+         Writing ddc file 'top.ddc'
+         Writing ddc file 'mid.ddc'
+         Writing ddc file 'bot.ddc'
+
+       This example shows how to save all designs in the current hierarchy  to
+       a single file:
+
+         prompt> write_file -hierarchy -output ~bill/dc/designs.ddc
+         Writing ddc file '/home/bill/dc/designs.ddc'
+
+       This example shows how to specify a list of designs to be saved:
+
+         prompt> write_file {ADDER MULT16}
+         Writing ddc file 'ADDER.ddc'
+         Writing ddc file 'MULT16.ddc'
+
+       This  example  shows another use of the -hierarchy option.  All designs
+       in the hierarchies of designs A and B are written to a single file:
+
+         prompt> write_file -hierarchy -output ~bill/dc/two_hiers.ddc {A B}
+         Writing ddc file '/home/bill/dc/two_hiers.ddc'
+
+       The following example shows how  to  specify  designs  by  listing  the
+       design   file  name  instead  of  the  design  names  themselves.  (Use
+       list_designs -show_file to see the design names  associated  with  each
+       file.)   It  writes  all  designs  that are associated with the top.ddc
+       file.
+
+         prompt> write_file top.ddc
+         Writing ddc file 'top.ddc'.
+         Writing ddc file 'mid.ddc'.
+         Writing ddc file 'bot.ddc'.
+
+       The following example shows how to resolve an ambiguous file name.   It
+       is  possible  to  have multiple designs in memory with the same name if
+       they are associated with different files.  To resolve the ambiguity you
+       must  specify  the  design  in the form file_name:design_name.  Use the
+       absolute path to the file to avoid possible file  name  conflicts.   In
+       the  following  example,  the  design  name "top" is ambiguous, and the
+       ambiguity is resolved by using the file name:
+
+         prompt> write_file -output new.ddc top
+         Error: 'top' doesn't specify a unique design
+                 Please use complete specification: full_file_name:design_name (UID-13)
+         prompt> write_file -output new.ddc /home/bill/dc/top.ddc:top
+         Writing ddc file 'new.ddc'
+
+SEE ALSO
+       read_file(2)
+       list_designs(2)
+       change_names(2)
+       define_name_rules(2)
+       create_block_abstraction(2)
+       view_write_file_suffix(3)
+       dc_allow_rtl_pg(3)
+
+                          Version Q-2019.12-SP3
+            Copyright (c) 2020 Synopsys, Inc. All rights reserved.
+dc_shell> source ../scripts/proc.tcl
+Writing ddc file '../outputs/proc.txt'.
+_sel281
+{D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT}
+D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT 0
+dc_shell> source ../scripts/proc.tcl
+Writing ddc file '../outputs/proc.txt'.
+_sel282
+{D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT}
+D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT 0
+dc_shell> source ../scripts/proc.tcl
+_sel283
+{D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT}
+D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT 0
+Error: extra positional option '../outputs/proc.txt' (CMD-012)
+dc_shell> source ../scripts/proc.tcl
+_sel284
+{D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT}
+D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS D8I1025_NS D8I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS I1025_NS SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT SDFFARX1_RVT **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_0** **logic_1** INVX4_RVT INVX4_RVT 0
+Error: extra positional option '0' (CMD-012)
+Error: extra positional option '../outputs/proc.txt' (CMD-012)
+dc_shell> 
+
+Memory usage for this session 238 Mbytes.
+Memory usage for this session including child processes 238 Mbytes.
+CPU usage for this session 10 seconds ( 0.00 hours ).
+Elapsed time for this session 68784 seconds ( 19.11 hours ).
+
+Thank you...

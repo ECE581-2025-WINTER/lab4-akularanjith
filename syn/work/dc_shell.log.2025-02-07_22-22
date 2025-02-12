@@ -1,0 +1,399 @@
+setting auto_restore_mw_cel_lib_setup true
+Initializing gui preferences from file  /u/ranjith/.synopsys_dv_prefs.tcl
+dc_shell> set top_design fifo1_sram
+fifo1_sram
+dc_shell> source ../scripts/dc.tcl
+set lib_dir /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib
+set hack_lef_dir /u/bcruik2/hacked_lefs
+/u/bcruik2/hacked_lefs
+# Decoder ring for the libraries
+# You will need to follow another example or look in the library directories to understand.
+# lib_types is used for the dc/dct linking variables and ICC2 NDM lcoations.
+# /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/db_nldm
+# /          $lib_dir                   /lib/ $lib_type /db_nldm
+# link_library, Target_library use the sub_lib_types and corner variables. 
+# For sub_lib_types and corner:
+# Example:
+#     saed32hvt_ss0p75v125c.db
+#     |sub_lib  corner    .db
+# The current flow tries to find all sub_lib and all corners in all the search paths.  Any match will be put in the library list.
+# Wild cards can be used, but be careful.  Multiple matches can occur in ways you don't want.
+# For the target library, the same method is used as the link library except only HVT and RVT lib_types are used.
+# ICC2 NDM choosing also uses the sub_lib_types so that only the required libraries and extras are not loaded.
+# fifo1
+#set top_design fifo1
+set add_ios 1
+1
+set pad_design 1
+1
+set design_size { 580 580  } 
+ 580 580  
+set design_io_border 310
+310
+set dc_floorplanning 1
+1
+set enable_dft 0
+0
+set innovus_enable_manual_macro_placement 0
+0
+set rtl_list [list ../../syn/rtl/$top_design.sv ]
+../../syn/rtl/fifo1_sram.sv
+set slow_corner "ss0p95v125c_2p25v ss0p95v125c"
+ss0p95v125c_2p25v ss0p95v125c
+set fast_corner "ff0p95vn40c ff1p16vn40c_2p75v ff1p16vn40c"
+ff0p95vn40c ff1p16vn40c_2p75v ff1p16vn40c
+set synth_corners $slow_corner
+ss0p95v125c_2p25v ss0p95v125c
+set synth_corners_target "ss0p95v125c" 
+ss0p95v125c
+#set synth_corners_target "ss0p95v125c" 
+set synth_corners_slow $slow_corner
+ss0p95v125c_2p25v ss0p95v125c
+set synth_corners_fast $fast_corner
+ff0p95vn40c ff1p16vn40c_2p75v ff1p16vn40c
+set slow_metal Cmax_125
+Cmax_125
+set fast_metal Cmax_125
+Cmax_125
+set lib_types "$lib_dir/stdcell_rvt/db_nldm $lib_dir/stdcell_hvt/db_nldm $lib_dir/io_std/db_nldm $lib_dir/sram/db_nldm $lib_dir/pll/db_nldm"
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/db_nldm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/db_nldm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/db_nldm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/db_nldm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/db_nldm
+set ndm_types "$lib_dir/stdcell_rvt/ndm $lib_dir/stdcell_hvt/ndm $lib_dir/sram/ndm $lib_dir/io_std/ndm  $lib_dir/pll/ndm"
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/ndm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/ndm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/ndm /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/ndm  /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/ndm
+set lib_types_target "$lib_dir/stdcell_rvt/db_nldm"
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/db_nldm
+# Get just the main standard cells, srams and IOs
+set sub_lib_type "saed32?vt_ saed32sram_ saed32io_wb_ saed32pll_"
+saed32?vt_ saed32sram_ saed32io_wb_ saed32pll_
+set sub_lib_type_target "saed32rvt_"
+saed32rvt_
+set tech_lef ${hack_lef_dir}/tech.lef 
+/u/bcruik2/hacked_lefs/tech.lef
+# set tech_lef ../../cadence_cap_tech/tech.lef
+set lef_types [list $hack_lef_dir  $lib_dir/sram/lef/ $lib_dir/io_std/lef $lib_dir/pll/lef ]
+/u/bcruik2/hacked_lefs /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/lef/ /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/lef /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/lef
+#set lef_types [list $lib_dir/stdcell_hvt/lef  $lib_dir/stdcell_rvt/lef $lib_dir/stdcell_lvt/lef $lib_dir/sram/lef $lib_dir/io_std/lef $lib_dir/pll/lef ]
+set sub_lef_type "saed32nm_?vt_*.lef saed32sram.lef saed32_io_wb_all.lef saed32_PLL.lef"
+saed32nm_?vt_*.lef saed32sram.lef saed32_io_wb_all.lef saed32_PLL.lef
+set mwlib_types [list $lib_dir/stdcell_hvt/milkyway $lib_dir/stdcell_rvt/milkyway $lib_dir/stdcell_lvt/milkyway  $lib_dir/io_std/milkyway $lib_dir/sram/milkyway $lib_dir/pll/milkyway  ]
+/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_lvt/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/milkyway /pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/milkyway
+set sub_mwlib_type "saed32nm_?vt_* SRAM32NM saed32io_wb_* SAED32_PLL_FR*"
+saed32nm_?vt_* SRAM32NM saed32io_wb_* SAED32_PLL_FR*
+#set topdir /u/$env(USER)/PSU_RTL2GDS
+set topdir [ lindex [ regexp -inline "(.*)\(syn\|pt\|apr\)" [pwd] ] 1 ]
+/u/ranjith/ECE581-2025/lab4-akularanjith/
+set FCL 0
+0
+set split_constraints 0
+0
+Warning: No designs to list. (UID-275)
+== ANALYZE autoread all files ==
+
+Starting ANALYZE autoread mode...
+Warning: Defining design library 'WORK' at directory '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/work/WORK_autoread'. (AUTOREAD-107)
+Information: Adding '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.  (AUTOREAD-100)
+Information: Scanning file { fifo1_sram.sv }. (AUTOREAD-303)
+Compiling source file /u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv
+Presto compilation completed successfully.
+Autoread command completed successfully.
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/io_std/db_nldm/saed32io_wb_ss0p95v125c_2p25v.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/sram/db_nldm/saed32sram_ss0p95v125c.db'
+Loading db file '/pkgs/synopsys/2020/32_28nm/SAED32_EDK/lib/pll/db_nldm/saed32pll_ss0p95v125c_2p25v.db'
+Loading db file '/pkgs/synopsys/2020/design_compiler/syn/Q-2019.12-SP3/libraries/syn/dw_foundation.sldb'
+Loading db file '/pkgs/synopsys/2020/design_compiler/syn/Q-2019.12-SP3/libraries/syn/gtech.db'
+Loading db file '/pkgs/synopsys/2020/design_compiler/syn/Q-2019.12-SP3/libraries/syn/standard.sldb'
+  Loading link library 'saed32rvt_ss0p95v125c'
+  Loading link library 'saed32hvt_ss0p95v125c'
+  Loading link library 'saed32io_wb_ss0p95v125c_2p25v'
+  Loading link library 'saed32sram_ss0p95v125c'
+  Loading link library 'saed32pll_ss0p95v125c_2p25v'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process
+        in routine fifo1_sram line 19 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      wdata_reg      | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (fifo1_sram)
+Elaborated 1 design.
+Current design is now 'fifo1_sram'.
+Information: Building the design 'sync_r2w'. (HDL-193)
+
+Inferred memory devices in process
+        in routine sync_r2w line 148 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    wq2_rptr_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    wq1_rptr_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (sync_r2w)
+Information: Building the design 'sync_w2r'. (HDL-193)
+
+Inferred memory devices in process
+        in routine sync_w2r line 159 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    rq2_wptr_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    rq1_wptr_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (sync_w2r)
+Information: Building the design 'fifomem' instantiated from design 'fifo1_sram' with
+        the parameters "8,10". (HDL-193)
+Warning:  /u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv:72: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+Warning:  /u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv:87: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+
+Statistics for case statements in always block at line 70 in file
+        '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            72            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 85 in file
+        '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|            87            |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (fifomem_DATASIZE8_ADDRSIZE10)
+Information: Building the design 'rptr_empty' instantiated from design 'fifo1_sram' with
+        the parameters "10". (HDL-193)
+
+Inferred memory devices in process
+        in routine rptr_empty_ADDRSIZE10 line 178 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      rbin_reg       | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      rptr_reg       | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine rptr_empty_ADDRSIZE10 line 189 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     rempty_reg      | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (rptr_empty_ADDRSIZE10)
+Information: Building the design 'wptr_full' instantiated from design 'fifo1_sram' with
+        the parameters "10". (HDL-193)
+
+Inferred memory devices in process
+        in routine wptr_full_ADDRSIZE10 line 206 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      wbin_reg       | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      wptr_reg       | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine wptr_full_ADDRSIZE10 line 221 in file
+                '/u/ranjith/ECE581-2025/lab4-akularanjith/syn/rtl/fifo1_sram.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      wfull_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (wptr_full_ADDRSIZE10)
+1
+dc_shell> gui_show
+Current design is 'fifo1_sram'.
+Current design is 'fifo1_sram'.
+dc_shell> 
+Loading db file '/pkgs/synopsys/2020/design_compiler/syn/Q-2019.12-SP3/libraries/syn/generic.sdb'
+dc_shell> man create clock
+Error: extra positional option 'clock' (CMD-012)
+dc_shell> man create_clock
+2.  Synopsys Commands                                        Command Reference
+                                 create_clock
+
+NAME
+       create_clock
+              Creates  a  clock object and defines its waveform in the current
+              design.
+
+SYNTAX
+       status create_clock
+               [-name clock_name]
+               [-add]
+               [source_objects]
+               [-period period_value]
+               [-waveform edge_list]
+               [-comment comment_string]
+
+   Data Types
+       clock_name         string
+       source_objects     list
+       period_value       float
+       edge_list          list
+       comment_string     string
+
+ARGUMENTS
+       -name clock_name
+              Specifies the name of the clock being created.  If  you  do  not
+              use  this  option, the clock is given the same name as the first
+              clock source specified in source_objects.  If  you  do  not  use
+              source_objects,  you  must use this option, which creates a vir-
+              tual clock not associated with a port or pin.  Use  this  option
+              along  with  source_objects to give the clock a more descriptive
+              name than that of the pin or port where it is applied.
+
+              If you specify the -add option, you must use  the  -name  option
+              and the clocks with the same source must have different names.
+
+       -add   Specifies  whether to add this clock to the existing clock or to
+              overwrite the existing clock.  Use this option  to  capture  the
+              case  where multiple clocks must be specified on the same source
+              for simultaneous analysis with different clock waveforms.   When
+              you  specify  this  option,  you must also use the -name option.
+              Defining multiple clocks on the same source pin or  port  causes
+              longer  runtime  and  higher  memory  usage than a single clock,
+              because the synthesis timing engine must  explore  all  possible
+              combinations   of   launch   and   capture   clocks.    Use  the
+              set_false_path command to disable unwanted  clock  combinations.
+              This  option  is  ignored  (the default), unless multiple clocks
+              analysis  is  enabled  by   setting   the   timing_enable_multi-
+              ple_clocks_per_reg variable to true.
+
+       source_objects
+              Specifies  a list of pins or ports on which to apply this clock.
+              If you do not use this option, you must  use  -name  clock_name,
+              which creates a virtual clock not associated with a port or pin.
+              If you specify a clock on a pin that already has  a  clock,  the
+              new clock replaces the old clock unless you use the -add option.
+
+       -period period_value
+              Specifies the period of  the  clock  waveform  in  library  time
+              units.
+
+       -waveform edge_list
+              Specifies  the  rise and fall edge times, in library time units,
+              of the clock over an entire clock period.  The first time in the
+              list  is a rising transition, typically the first rising transi-
+              tion after time zero.  There must be an even number of  increas-
+              ing  times, and they are assumed to be alternating rise and fall
+              times.  The numbers must represent one full  clock  period.   If
+              -waveform  edge_list  is not specified, but -period period_value
+              is, a default waveform with a rise edge of 0.0 and a  fall  edge
+              of period_value/2 is assumed.
+
+       -comment comment_string
+              Allows  the  command to accept a comment string. The tool honors
+              the annotation and preserves it with the SDC object so that  the
+              exact  string  is written out when the constraint is written out
+              when you use the write_sdc or write_script command. The  comment
+              remains  intact through the synthesis, place-and-route, and tim-
+              ing-analysis flows.
+
+DESCRIPTION
+       The create_clock command creates a clock object in the current  design.
+       The  command  defines  the specified source_objects as clock sources in
+       the current design.  A pin or port can be a source for a single  clock.
+       If  source_objects  is not specified, but a clock_name is given, a vir-
+       tual clock is created.  A virtual clock can be created to represent  an
+       off-chip  clock  for  input  or  output  delay specification.  For more
+       information about input and output delay, refer to the  set_input_delay
+       and set_output_delay command man pages.
+
+       Clock  objects  hold  attributes that affect the clock network, such as
+       dont_touch_network, fix_hold, and propagated_clock.  Using create_clock
+       on an existing clock object overwrites the attributes previously set on
+       the clock object.  The create_clock command also defines  the  waveform
+       for  the  clock.  The clock can have multiple pulses per period.  Setup
+       and hold path delays are automatically derived from the clock waveforms
+       of  the  path  startpoint and endpoint.  The fix_hold attribute (set by
+       the set_fix_hold command) directs compile to fix hold violations for  a
+       clock.
+
+       By  default,  a  new  path group is created for the clock.  This groups
+       together the endpoints related to this clock for cost function calcula-
+       tion.   To remove the clock from its assigned group, use the group_path
+       command to reassign the clock to another group or to the  default  path
+       group.  For more information, refer to the group_path command man page.
+
+       The new clock has ideal timing, so no  propagation  delay  through  the
+       clock  network  is  assumed.   To  enable propagation delay through the
+       clock network, use the set_propagated_clock command.  To  add  skew  or
+       uncertainty  to  the  ideal  waveform,  use  the  set_clock_latency  or
+       set_clock_uncertainty command.
+
+       To show information about all  clock  sources  in  a  design,  use  the
+       report_clock  command.   To  get  a  list  of  clock  sources,  use the
+       get_clocks command.  To return sequential  cells  related  to  a  given
+       clock,  use  the  all_registers command.  To undo create_clock, use the
+       remove_clock command.
+
+   Multicorner-Multimode Support
+       This command uses information from the current scenario only.
+
+EXAMPLES
+       The following example creates a clock on port PHI1  with  a  period  of
+       10.0, rise at 5.0, and fall at 9.5:
+
+         prompt> create_clock "PHI1" -period 10 -waveform {5.0 9.5}
+
+       In  the following example, the clock has a falling edge at 5 and a ris-
+       ing edge at 10, with a period of  10.   Because  the  -waveform  option
+       expects  the  edges to be ordered first rise then fall, and to increase
+       in value, the fall edge can be given as 15; that is, the  next  falling
+       edge after the first rise edge at 10.
+
+         prompt> create_clock "PHI2" -period 10 -waveform {10 15}
+
+       The  following  example  creates a clock named CLK on pin u13/Z, with a
+       period of 25, fall at 0.0, rise at 5.0, fall at 10.0, rise at 15.0, and
+       so forth:
+
+         prompt> create_clock "u13/Z" -name "CLK" -period 25 -waveform {5 10 15 25}
+
+       The  following  example creates a virtual clock named HI2 with a period
+       of 10.0, rise at 0.0, and fall at 5.0:
+
+         prompt> create_clock -name "PHI2" -period 10 -waveform {0.0 5.0}
+
+       The following example creates a clock with multiple sources and a  com-
+       plex waveform:
+
+         prompt> create_clock -name "clk2" -period 10 -waveform {0.0 2.0 4.0 6.0} \
+                 {clkgen1/Z clkgen2/Z clkgen3/Z}
+
+SEE ALSO
+       all_clocks(2)
+       all_registers(2)
+       check_timing(2)
+       compile(2)
+       current_design(2)
+       get_clocks(2)
+       group_path(2)
+       remove_clock(2)
+       report_clock(2)
+       reset_design(2)
+       set_clock_latency(2)
+       set_clock_uncertainty(2)
+       set_dont_touch_network(2)
+       set_fix_hold(2)
+       set_max_delay(2)
+       set_min_delay(2)
+       set_output_delay(2)
+       set_propagated_clock(2)
+
+                          Version Q-2019.12-SP3
+            Copyright (c) 2020 Synopsys, Inc. All rights reserved.
+dc_shell> 
